@@ -27,6 +27,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install bootstrap (for SCSS)
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm install --no-save bootstrap@5
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -34,17 +44,6 @@ jobs:
           submodules: true
           # If using the 'assets' git submodule from Chirpy Starter, uncomment above
           # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
-      - name: Init submodules (assets/lib)
-        run: |
-          git submodule sync --recursive
-          git submodule update --init --recursive
-          echo "[debug] submodule status"
-          git submodule status
-          echo "[debug] check bootstrap scss exists"
-          test -f assets/lib/bootstrap/scss/_bootstrap.scss && echo "OK: bootstrap scss found" || (echo "MISSING: assets/lib/bootstrap/scss/_bootstrap.scss"; exit 1)
-          echo "[debug] list vendors shim"
-          ls -al assets/css/vendors || true
-          sed -n '1,20p' assets/css/vendors/_bootstrap.scss || true
 
       - name: Setup Pages
         id: steup_pages
@@ -57,7 +56,7 @@ jobs:
           bundler-cache: true
 
       - name: Build site
-        run: bundle exec jekyll build --trace -d "_site${{ steps.setup_pages.outputs.base_path }}"
+        run: bundle exec jekyll build --trace -d "_site${{ steps.pages.outputs.base_path }}"
         env:
           JEKYLL_ENV: "production"
 
