@@ -16,7 +16,7 @@ timezone: Asia/Seoul
 
 title: astronaut0703 # the main title
 
-tagline: System Hacking Log # it will display as the subtitle
+tagline: Hacking Life Log # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
 
@@ -97,11 +97,11 @@ theme_mode: # [light | dark]
 cdn: #"https://chirpy-img.netlify.app"
 
 # the avatar on sidebar, support local or CORS resources
-avatar: /assets/img/astronaut_profile.png
+avatar: /assets/img/profile.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
-social_preview_image: /assets/img/astronaut_image.png
+social_preview_image: /assets/img/profile.png
 
 # boolean type, the global switch for TOC in posts.
 toc: true
