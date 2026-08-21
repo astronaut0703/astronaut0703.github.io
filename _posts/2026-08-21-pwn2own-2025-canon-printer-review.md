@@ -457,14 +457,6 @@ This was the only one of the three I judged **low-applicability**, so I left it 
 
 ---
 
-## Closing
-
-The last step of this chain disables the ARM MMU wholesale through DACR manipulation. The first step was **one extra `&` inside a `for` loop**.
-
-Exploits get more spectacular the higher you climb. The floor is always a mistake about this size.
-
----
-
 ## References
 
 - [Team PetoWorks — *Pwn2Own 2025 Ireland*](https://peto.works/techblog/pwn2own-2025-ireland-kor) (original write-up)
