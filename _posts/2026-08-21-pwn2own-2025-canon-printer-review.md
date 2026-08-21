@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "A Pwn2Own-Level Break of a Printer — Notes & Review on the Canon MFP Hack"
+title: "[Pwn2Own 2025 Canon Review] The Allocator Handed Out One Pointer, but the Code Gave Back Four"
 date: 2026-08-21 10:00:00 +0900
-categories: [security, embedded]
+categories: [Paper Review]
 tags: [pwn2own, canon, dryos, rtos, heap-exploitation, cve-2025-14233, firmware]
 description: "How a single misplaced free() in Canon's proprietary CPCA protocol turned into a $10,000 remote code execution on a networked office printer — plus my own review of the research."
 toc: true
