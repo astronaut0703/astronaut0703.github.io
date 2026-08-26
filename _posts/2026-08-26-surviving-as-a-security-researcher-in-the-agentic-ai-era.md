@@ -116,15 +116,11 @@ That rule is called an **oracle**, and the execution environment wrapped around 
 
 The weight of this grows with targets where the definition of "normal" is itself complex — kernels, firmware, protocol implementations. Put the other way: **the stronger agents get, the more a person who knows how to write a good oracle is worth.** The better the gun, the more the sighting matters.
 
-「Insert personal experience: one project where most of the time went into harness/oracle design, and one or two sentences on what was hard about it」
-
 ### (2) Targets Whose Context Lives Outside the Code
 
 > "You have to do binary patching, and that is still a hard problem." — Park Se-jun
 
 AI decompilation has made analysis without source easier, but how to operate a system that cannot be fixed is still a human problem. For targets where **physical safety requirements, regulation, and vendor relationships are entangled** — legacy industrial equipment, ICS, vehicles, drones — vulnerability knowledge alone does not produce an answer. Knowledge outside the code, such as electrical and mechanical constraints, safety certification, and the cost of downtime, becomes the barrier to entry, and that barrier does not lower as model performance rises.
-
-「Insert personal experience: a case in drone/ICS/firmware work where a constraint could not be seen from the code alone」
 
 ### (3) The Person Who Rules It Out, Not the Person Who Finds It
 
