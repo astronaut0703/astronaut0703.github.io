@@ -48,7 +48,7 @@ In one line: this is not a security threat model that assumes what an attacker c
 
 ### 3.1 Background: What does ROS 2 look like?
 
-![ROS 2 architecture](/assets/img/%5BRoboFuzz%5Dimg1.png)
+![ROS 2 architecture](/assets/img/robofuzz-1.png)
 
 ROS 2 is divided into the application layer written by the developer (1) and the internal layers beneath it that handle data delivery (2–6).
 
@@ -68,7 +68,7 @@ A ROS application consists of three things.
 
 When a node publishes a message to a topic, the nodes subscribed to that topic receive it. Each topic accepts exactly one message type.
 
-![ROS nodes, topics, and messages](/assets/img/%5BRoboFuzz%5Dimg2.png)
+![ROS nodes, topics, and messages](/assets/img/robofuzz-2.png)
 
 The paper gives three reasons why robots are hard to test, and proposes a design for each (§2.1).
 
@@ -80,7 +80,7 @@ The paper gives three reasons why robots are hard to test, and proposes a design
 
 ### 3.2 Overall flow
 
-![RoboFuzz overview](/assets/img/%5BRoboFuzz%5Dimg3.png)
+![RoboFuzz overview](/assets/img/robofuzz-3.png)
 
 Fuzzing is a method of finding bugs by repeatedly feeding a program inputs that are changed little by little. RoboFuzz repeats this process in the following order.
 
@@ -100,7 +100,7 @@ A ROS topic (channel) only accepts messages of a fixed type. A message whose typ
 
 ### 3.4 Key idea ②: Running the simulator and the real robot together
 
-![Hybrid execution with simulator and real robot](/assets/img/%5BRoboFuzz%5Dimg4.png)
+![Hybrid execution with simulator and real robot](/assets/img/robofuzz-4.png)
 
 Testing with a simulator alone misses two things. One is the difference that arises because the simulator cannot imitate reality exactly, and the other is values that do not exist in the simulator at all, such as motor temperature. So RoboFuzz sends the same message to the simulator and the real robot at the same time. This way, it can capture values that are visible on only one side, as well as the moment when values present on both sides diverge. The environment inside the simulator was made as identical as possible to the real test site, down to the GPS coordinates, trees, and buildings.
 
@@ -124,7 +124,7 @@ An oracle is the criterion for judging "Is this result correct?" To borrow the p
     - Physical consistency oracle: checks whether values are normal numbers, and whether joint velocity is reported as 0 while the arm is moving.
 - ROS internal layers
 
-    ![ROS internal layer oracles](/assets/img/%5BRoboFuzz%5Dimg5.png)
+    ![ROS internal layer oracles](/assets/img/robofuzz-5.png)
 
     - API consistency oracle: compares whether the C++ API (rclcpp) and the Python API (rclpy), when doing the same thing, call the same internal functions and produce the same result.
     - Type system oracle: checks five rules. Putting in a value of a different type, a value larger than the maximum, a value smaller than the minimum, or a value of a different type into an array element must fail; everything else must succeed.
@@ -149,7 +149,7 @@ The following robot-specific feedback was also added.
 
 ### 3.7 Results
 
-![Bugs found by RoboFuzz](/assets/img/%5BRoboFuzz%5Dimg6.png)
+![Bugs found by RoboFuzz](/assets/img/robofuzz-6.png)
 
 - RoboFuzz is implemented in about 5.5k lines of Python and runs on ROS 2 Foxy.
 - Targeting PX4, TurtleBot3, MoveIt 2, Turtlesim, ROSIDL, and rclcpp/rclpy, a separate fuzzing instance was created for each kind of input the target receives, and each was run for 12 hours.
@@ -162,7 +162,7 @@ Here are three of the bug cases introduced in the paper.
 - **Bug where TurtleBot3 ignores valid commands (#09–10):** The documented maximum velocity is 0.22 m/s. The firmware limits this to 0.2108 m/s and converts it to a wheel velocity value of 266.37. This value is smaller than the limit of 337 hardcoded in the motor driver, so it passes. But the motor's specified limit is 265, so the motor silently fails to carry out the command. In the end, the user sent a valid command, but the robot does not move.
 - **Type mistake in Turtlesim (#16):** The return type of the `normalizeAngle` function, which normalizes an angle to −π to π, is wrongly declared as float. So when a very large angular velocity is given, the orientation value becomes NaN, and the turtle's position becomes physically impossible.
 
-![Evaluation of feedback and coverage](/assets/img/%5BRoboFuzz%5Dimg7.png)
+![Evaluation of feedback and coverage](/assets/img/robofuzz-7.png)
 
 - **Effect of robot-knowledge feedback:** With feedback turned on, bug #06 occurred 9 times; with it turned off and only random mutation, it occurred 2 times.
 - **Limits of code coverage:** PX4's branch coverage stopped at 21% within the first 10 minutes and barely increased over 12 hours. Meanwhile, the drone exhibited many different behaviors, including 9 specification violations.
