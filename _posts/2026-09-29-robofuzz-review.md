@@ -196,7 +196,7 @@ The only inputs RoboFuzz fuzzes are ROS messages. Physical attacks were left as 
 
 My thought is that if sensor inputs had also been included as fuzzing targets, they would have fit well with this feedback... I'm curious why they only went as far as ROS messages.
 
-## 6. Shortcomings, lessons learned, and the research I want to do
+## 6. Shortcomings and lessons learned
 
 ### Shortcomings
 
