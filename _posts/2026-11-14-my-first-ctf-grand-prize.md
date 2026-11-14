@@ -1,6 +1,6 @@
 ---
 title: "My First CTF Grand Prize, and the Emptiness After"
-date: 2026-11-14 23:30:00 +0900
+date: 2026-11-14 23:10:00 +0900
 categories: [Retrospective]
 tags: [ctf, ai, bug bounty]
 ---
